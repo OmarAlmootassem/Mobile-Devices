@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Lab3</string>
+    <string name="welcome_message">Welcome to Lab 3</string>
+    <string name="about">About</string>
+    <string name="login">Login</string>
+    <string name="finish">Finish</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+
+    <string name="about_desc">This application is my solution for lab #3 for CSCI 4100u</string>
+</resources>
