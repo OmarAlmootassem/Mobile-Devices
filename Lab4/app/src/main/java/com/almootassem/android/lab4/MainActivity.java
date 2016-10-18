@@ -50,14 +50,13 @@ public class MainActivity extends AppCompatActivity {
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(MainActivity.this)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(getString(R.string.battery_status))
-                    .setStyle(new NotificationCompat.BigTextStyle());
+                    .setContentTitle(getString(R.string.battery_status));
             if (isCharging) notificationText += getString(R.string.battery_charging); else notificationText += getString(R.string.battery_discharging);
             if (isFull) notificationText += getString(R.string.battery_full);
             if (isHealthy) notificationText += getString(R.string.battery_healthy); else notificationText += getString(R.string.battery) + healthString + "\n";
             if (isPluggedAC) notificationText += getString(R.string.battery_ac); else if (isPluggedUSB) notificationText += getString(R.string.battery_usb); else notificationText += getString(R.string.phone_unplugged);
-
-            mBuilder.setContentText(notificationText);
+            notificationText += getString(R.string.temperature) + temp + "C";
+            mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationText));
 
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(context.NOTIFICATION_SERVICE);
             mNotificationManager.notify(0, mBuilder.build());
