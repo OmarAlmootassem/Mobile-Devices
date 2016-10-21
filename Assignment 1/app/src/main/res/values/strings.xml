@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Omar Almootassem</string>
+    <string name="main_button_start">Start Survey</string>
+    <string name="main_button_continue">Continue Survey</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
+    <string name="activity_summary">Summary</string>
+    <string name="activity_main_menu">Main Menu</string>
+    <string name="activity_ask_question">Ask Question</string>
+
+    <string-array name="questions">
+        <item>Is API 24 the newest Android API?</item>
+        <item>Was Google right in changing the Nexus phone line to the Pixel phone line even though it is not build in house?</item>
+        <item>Is Android fully developed by google?</item>
+        <item>Android Studio was released in 2014? (Stable build)</item>
+        <item>Would you buy a Note 7 after the recall?</item>
+    </string-array>
+</resources>
