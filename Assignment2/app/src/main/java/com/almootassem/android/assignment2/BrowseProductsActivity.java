@@ -23,14 +23,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * This is the main activity of the app. It shows all the products that are
+ * in the local database. It allows deleting products and has a button that
+ * goes to AddProductActivity to add a product.
+ */
 public class BrowseProductsActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowseProductActivity";
 
+    //Instance of database helper class
     ProductDBHelper db;
 
+    //Layout Elements
     EditText name, description, cadPrice, bitcoinPrice;
     Button previous, delete, next;
+    //Information about products
     int currentProduct = 0;
     List<Product> products;
 
@@ -39,6 +47,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_products);
 
+        //Initializing the layout elements
         name = (EditText) findViewById(R.id.name_edittext);
         description = (EditText) findViewById(R.id.desc_edittext);
         cadPrice = (EditText) findViewById(R.id.cad_price_edittext);
@@ -48,18 +57,24 @@ public class BrowseProductsActivity extends AppCompatActivity {
         delete = (Button) findViewById(R.id.delete_product);
         next = (Button) findViewById(R.id.next_product);
 
+        //Initializing the DB Helper
         db = new ProductDBHelper(this);
 
+        //Saves all products in an arrayList
         products = db.getAllProducts();
 
         currentProduct = 0;
+        //Checks how many products there are and gets the Bitcoin price and then updates
+        //the fields
         if (products.size() > 0)
             new ConvertToBitCoin().execute(products.get(currentProduct).getPrice());
         else
             Toast.makeText(this, R.string.no_products, Toast.LENGTH_LONG).show();
 
+        //Enables/Disables buttons accordingly
         buttonStatus();
 
+        //OnClickListener for previous button; it goes to previous product
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +84,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
             }
         });
 
+        //OnClickListener for next button; it goes to next product
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +94,8 @@ public class BrowseProductsActivity extends AppCompatActivity {
             }
         });
 
+        //OnClickListener for delete button; it deletes the product then updates
+        //the products list
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +122,10 @@ public class BrowseProductsActivity extends AppCompatActivity {
         buttonStatus();
     }
 
+    /**
+     * Updates the buttons depending on how many products are there in the database
+     * and which product is currently visible
+     */
     private void buttonStatus(){
         Log.v(TAG, "Current: " + currentProduct + ", Size: " + (products.size() - 1));
         if (currentProduct == 0){
@@ -151,6 +173,9 @@ public class BrowseProductsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Asynctask to retrieve the Bitcoin price from a CAD price
+     */
     class ConvertToBitCoin extends AsyncTask<Double, Void, String> {
 
         @Override
@@ -158,12 +183,15 @@ public class BrowseProductsActivity extends AppCompatActivity {
             HttpURLConnection urlConnection = null;
             String result = "";
             try {
+                //Initilize connection to url and pass the CAD value
                 URL url = new URL("https://blockchain.info/tobtc?currency=CAD&value=" + params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 int code = urlConnection.getResponseCode();
 
+                //If success
                 if(code==200){
+                    //Go through the result and save it in result variable
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                     if (in != null) {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
@@ -172,6 +200,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
                         while ((line = bufferedReader.readLine()) != null)
                             result += line;
                     }
+                    //close stream
                     in.close();
                 }
 
@@ -183,6 +212,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
             }
 
             finally {
+                //Disconnect connection
                 urlConnection.disconnect();
             }
             return result;
@@ -192,6 +222,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            //Set the EditText values
             bitcoinPrice.setText(result);
             name.setText(products.get(currentProduct).getName());
             description.setText(products.get(currentProduct).getDescription());
