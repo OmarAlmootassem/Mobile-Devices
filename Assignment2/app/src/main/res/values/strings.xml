@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Assignment 2</string>
+    <string name="add_product">Add New Product</string>
+    <string name="product_name">Product Name:</string>
+    <string name="product_desc">Description:</string>
+    <string name="product_price_cad">Price (CAD):</string>
+    <string name="product_price_bitcoin">Price (BITCOIN):</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="delete">Delete</string>
+    <string name="dollar">$</string>
+    <string name="deleted">" deleted"</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="product_added">Product Added</string>
+    <string name="no_products">No Products Available</string>
+</resources>
