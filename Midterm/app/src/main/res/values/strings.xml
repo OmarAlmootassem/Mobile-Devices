@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Housing Browser</string>
+
+    <string name="address">Address:</string>
+    <string name="municipality">Municipality:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="num_units"># Units:</string>
+</resources>
