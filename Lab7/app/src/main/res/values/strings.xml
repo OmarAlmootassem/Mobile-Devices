@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lab 7</string>
+    <string name="add_grade">Add Grade</string>
+    <string name="delete_grade">Delete Grade</string>
+    <string name="student_id">Student ID</string>
+    <string name="course_comp">Course Component</string>
+    <string name="mark">Mark</string>
+</resources>
