@@ -9,16 +9,16 @@ public class Product {
     private int productId;
     private String name;
     private String description;
-    private double price;
+    private Float price;
 
-    public Product(int productId, String name, String description, double price){
+    public Product(int productId, String name, String description, Float price){
         this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    public Product(String name, String description, double price){
+    public Product(String name, String description, Float price){
         this.name = name;
         this.description = description;
         this.price = price;
@@ -28,7 +28,7 @@ public class Product {
         return productId;
     }
 
-    public double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
@@ -48,7 +48,7 @@ public class Product {
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

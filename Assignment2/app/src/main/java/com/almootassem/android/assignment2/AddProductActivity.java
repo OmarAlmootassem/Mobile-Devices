@@ -46,7 +46,7 @@ public class AddProductActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.addProduct(new Product(name.getText().toString(), description.getText().toString(), Double.valueOf(cadPrice.getText().toString())));
+                db.addProduct(new Product(name.getText().toString(), description.getText().toString(), Float.valueOf(cadPrice.getText().toString())));
                 Toast.makeText(getApplicationContext(), R.string.product_added, Toast.LENGTH_LONG).show();
                 finish();
             }

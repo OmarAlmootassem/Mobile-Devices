@@ -28,7 +28,7 @@ import java.util.List;
  * in the local database. It allows deleting products and has a button that
  * goes to AddProductActivity to add a product.
  */
-public class BrowseProductsActivity extends AppCompatActivity {
+public class BrowseProductsActivity extends AppCompatActivity implements  OnTaskCompleted {
 
     private static final String TAG = "BrowseProductActivity";
 
@@ -67,7 +67,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
         //Checks how many products there are and gets the Bitcoin price and then updates
         //the fields
         if (products.size() > 0)
-            new ConvertToBitCoin().execute(products.get(currentProduct).getPrice());
+            showProduct(products.get(currentProduct));
         else
             Toast.makeText(this, R.string.no_products, Toast.LENGTH_LONG).show();
 
@@ -79,7 +79,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentProduct--;
-                new ConvertToBitCoin().execute(products.get(currentProduct).getPrice());
+                showProduct(products.get(currentProduct));
                 buttonStatus();
             }
         });
@@ -89,7 +89,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentProduct++;
-                new ConvertToBitCoin().execute(products.get(currentProduct).getPrice());
+                showProduct(products.get(currentProduct));
                 buttonStatus();
             }
         });
@@ -104,10 +104,28 @@ public class BrowseProductsActivity extends AppCompatActivity {
                 products = db.getAllProducts();
                 currentProduct = 0;
                 if (products.size() > 0)
-                    new ConvertToBitCoin().execute(products.get(currentProduct).getPrice());
-                buttonStatus();
+                    showProduct(products.get(currentProduct));
             }
         });
+    }
+
+    @Override
+    public void taskCompleted(String result){
+        //Set the EditText values
+        bitcoinPrice.setText(result);
+    }
+
+    /**
+     * showProduct - takes care of displaying the information in the edittexts
+     * @param product
+     */
+    public void showProduct(Product product){
+        new ConvertToBitCoin(this).execute(product.getPrice());
+        name.setText(product.getName());
+        description.setText(product.getDescription());
+        String cad = getString(R.string.dollar) + String.valueOf(product.getPrice());
+        cadPrice.setText(cad);
+        buttonStatus();
     }
 
     @Override
@@ -117,7 +135,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
 
         currentProduct = 0;
         if (products.size() > 0)
-            new ConvertToBitCoin().execute(products.get(currentProduct).getPrice());
+            showProduct(products.get(currentProduct));
 
         buttonStatus();
     }
@@ -176,10 +194,15 @@ public class BrowseProductsActivity extends AppCompatActivity {
     /**
      * Asynctask to retrieve the Bitcoin price from a CAD price
      */
-    class ConvertToBitCoin extends AsyncTask<Double, Void, String> {
+    class ConvertToBitCoin extends AsyncTask<Float, Void, String> {
+        private OnTaskCompleted listener = null;
+
+        ConvertToBitCoin(OnTaskCompleted listener){
+            this.listener = listener;
+        }
 
         @Override
-        protected String doInBackground(Double... params) {
+        protected String doInBackground(Float... params) {
             HttpURLConnection urlConnection = null;
             String result = "";
             try {
@@ -222,11 +245,7 @@ public class BrowseProductsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            //Set the EditText values
-            bitcoinPrice.setText(result);
-            name.setText(products.get(currentProduct).getName());
-            description.setText(products.get(currentProduct).getDescription());
-            cadPrice.setText(getString(R.string.dollar) + String.valueOf(products.get(currentProduct).getPrice()));
+            listener.taskCompleted(result);
         }
     }
 }

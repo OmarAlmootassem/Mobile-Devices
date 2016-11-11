@@ -89,7 +89,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
         //create the new product
-        Product product = new Product(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Double.valueOf(cursor.getString(3)));
+        Product product = new Product(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Float.valueOf(cursor.getString(3)));
         return product;
     }
 
@@ -110,7 +110,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         //Loop through the result and create a new product and add to the list
         if (cursor.moveToFirst()){
             do{
-                Product product = new Product(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Double.valueOf(cursor.getString(3)));
+                Product product = new Product(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Float.valueOf(cursor.getString(3)));
                 productList.add(product);
             } while (cursor.moveToNext());
         }
