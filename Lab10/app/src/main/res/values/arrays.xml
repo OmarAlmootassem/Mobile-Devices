@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="media_names">
+        <item>sound1</item>
+        <item>sound2</item>
+        <item>vid1</item>
+        <item>vid2</item>
+    </string-array>
+</resources>
