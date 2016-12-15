@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PracticeExam</string>
+    <string name="number_bikes">Number Bikes:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="address">Address:</string>
+    <string name="name">Name:</string>
+    <string name="bike_share_id">Bike Share ID:</string>
+    <string name="save">save</string>
+    <string name="show_on_map">Show on map</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Store Finder</string>
+    <string name="waiting_for_your_location">Waiting for your location</string>
+    <string name="select_a_default_store">Select a default store</string>
+    <string name="default_store_saved">Default store saved</string>
+    <string name="km">km</string>
+    <string name="select_preferred_store">Select a preferred Store</string>
+    <string name="preferred_store_saved">Preferred Store Saved</string>
+</resources>
